@@ -3,13 +3,15 @@ import dotenv from'dotenv'
 import connectDB from "./config/db.js"
 import morgan from 'morgan'
 import cors from 'cors'
-
+import path from 'path'
 //routes
 import userRoute from "./routes/userRoutes.js"
 import bookRoute from './routes/bookRoutes.js'
+import uploadRoute from "./routes/uploadRoute.js"
 
 //app
 const app =express()
+const __dirname = path.resolve();
 
 //configurations
 dotenv.config()
@@ -22,6 +24,11 @@ connectDB()
 app.use(express.json())
 app.use("/api/users",userRoute)
 app.use("/api/books" ,bookRoute)
+app.use("/api/upload",uploadRoute)
+
+
+//make uploads folder static
+app.use('/uploads' , express.static(path.join(__dirname , '/uploads')))
 
 if(process.env.NODE_ENV === 'development'){
     app.use(morgan('dev'))

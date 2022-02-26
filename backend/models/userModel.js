@@ -25,12 +25,13 @@ const userSchema =mongoose.Schema({
         default:false
     },
     savedBooks:{
-        type:Array,
+        type:[mongoose.Schema.Types.ObjectId],
+        
         
     },
     Mybook:{
         type:mongoose.Schema.Types.Array,
-        ref:'bookSchema'
+        ref:'Book'
     }
     
 },{

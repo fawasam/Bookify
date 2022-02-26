@@ -1,12 +1,12 @@
 import mongoose from 'mongoose'
 const bookSchema =mongoose.Schema({
 
-    // user:{
-    //     type:mongoose.Schema.Types.ObjectId,
-    //     required:true,
-    //     ref:'User'
-    // },
-    booktitle:{
+    user:{
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:'User'
+    },
+    title:{
         type:String,
         required:true
     },
@@ -14,7 +14,7 @@ const bookSchema =mongoose.Schema({
         type:String,
         required:true
     },
-    bookauthor:{
+    author:{
         type:String,
         required:true
     },
@@ -26,11 +26,11 @@ const bookSchema =mongoose.Schema({
         type:String,
         required:true
     },
-    link:{
+    url:{
         type:String,
         required:true
     },
-    bookContent:{
+    description:{
         type:String,
         required:true
     },

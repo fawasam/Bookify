@@ -1,6 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import Book from '../models/bookModel.js'
-
+import User from "../models/userModel.js"
 
 
 
@@ -19,6 +19,9 @@ const getBooks = asyncHandler(async(req,res) => {
     const books = await Book.find()
     res.json(books)
 })
+
+
+
 
 // @desc   Fetch single books
 // @route  GET  /api/books/:id
@@ -42,32 +45,47 @@ const getBooksById = asyncHandler(async(req,res) => {
 
 const createBook = asyncHandler(async(req,res) => {
 
-    try {
-        
+    try {      
+        const user = req.user._id;
         const { 
-           booktitle, 
+           title, 
            genre, 
-           bookauthor,
-           image,
+           author,
            language,
-           link,
-           bookContent
-       }=req.body
-   
+           url,description,image
+           
+       }=req.body  
        const book = new Book ({
-          booktitle, 
+           user,
+           title, 
            genre, 
-           bookauthor,
+           author,
            image,
            language,
-           link,
-           bookContent
+           url,
+           description
         
        })
-       const createdbook = await book.save()
-       res.status(201).json(createdbook)
+       const user1 =await User.findById (req.user._id)
+       if(user1)
+       {
+           const createdbook = await book.save()
+               const {_id} =createdbook
+               const updatedUser=await User.findByIdAndUpdate({_id : req.user._id},{
+                   $addToSet:{
+                       Mybook:_id
+                    }
+                })
+                res.status(201).json(createdbook )
+                // console.log(createBook ,updatedUser)
+        
+       }else{
+          return res.status(400).json({errors:[{msg: 'Invalid credentials'}]})
+       }
+
     } catch (error) {
         res.status(400).json({errors:[{ms:'Invalid user data'}]})
+        console.log(error);
     }
 })
 
@@ -78,26 +96,25 @@ const createBook = asyncHandler(async(req,res) => {
 const updateBook = asyncHandler(async(req,res) => {
 
   const { 
-           booktitle, 
+           title, 
            genre, 
-           bookauthor,
+           author,
            image,
            language,
-           link,
-           bookContent
+           url,description
        }=req.body
 
     const book = await Book.findById(req.params.id)
 
     if(book){
 
-        book.booktitle =booktitle || book.booktitle
+        book.title =title || book.title
         book.genre =genre || book.genre
-        book.bookauthor =bookauthor || book.bookauthor
+        book.author =author || book.author
         book.image =image || book.image
         book.language =language || book.language
-        book.link =link || book.link
-        book.bookContent =bookContent || book.bookContent
+        book.url =url || book.url
+        book.description =description || book.description
 
         const updatedbook = await book.save()
         res.status(201).json(updatedbook)
@@ -126,5 +143,6 @@ export {
     getBooksById,
     createBook,
     updateBook,
-    deleteBook
+    deleteBook,
+    
 }
