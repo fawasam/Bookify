@@ -53,14 +53,15 @@ const authUser = asyncHandler(async(req,res) => {
     const isMatch = await bcrypt.compare(password ,user.password)
 
     if (isMatch) {
-    //  res.json({
-    //      _id:user._id,
-    //      name:user.name,
-    //      email:user.email,
-    //      isAdmin:user.isAdmin,
-    //      token:generateToken(user._id)
-    //  })
-    res.json({user , token:generateToken(user._id)})
+     res.json({
+         _id:user._id,
+         name:user.name,
+         email:user.email,
+         isAdmin:user.isAdmin,
+         savedBooks:user.savedBooks,
+         Mybook:user.Mybook,
+         token:generateToken(user._id)
+     })
    }
    else{
      return res.status(400).json({errors:[{msg: 'Invalid credentials'}]})

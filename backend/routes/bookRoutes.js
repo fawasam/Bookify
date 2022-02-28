@@ -29,7 +29,7 @@ router.delete('/:id' ,protect, deleteBook)
 
 //savebooks
 router.put('/savebooks/:id',protect, saveBook) 
-router.get('/savebooks/:id',protect, listSavedBook) 
+router.get('/savebooks/:id', listSavedBook)  //protected
 router.delete('/savebooks/:id',protect, deleteSaveBook) 
 
 

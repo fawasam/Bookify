@@ -18,8 +18,8 @@ const saveBook = asyncHandler (async(req,res)=>{
             }
         })
         if(user){
-            const savebook = await user.save()
-            res.status(201).json(savebook)
+
+            res.status(201).json(user)
         }else{
             res.status(404).json({errors:[{msg: 'book not found'}]})
         }
@@ -32,7 +32,7 @@ const saveBook = asyncHandler (async(req,res)=>{
 
 
 // @desc   list saved books
-// @route  GET /api/savebooks/:id
+// @route  GET /api/books/savebooks/:id
 // @access Private
 
 const listSavedBook = asyncHandler (async(req,res)=>{
@@ -43,7 +43,7 @@ const listSavedBook = asyncHandler (async(req,res)=>{
            const books =user.savedBooks
            const book = await Book.find({_id:{$in :[...books]}})
            if(book){
-               res.json(book)
+               res.status(200).json(book)
            }else{
             res.status(404).json({errors:[{msg: 'book not found'}]})
         }
@@ -61,25 +61,30 @@ const listSavedBook = asyncHandler (async(req,res)=>{
 
 
 // @desc   delete saved books
-// @route  DELTE  /api/savebooks/:id
+// @route  DELTE  /api/books/savebooks/:id
 // @access Private
 
 const deleteSaveBook = asyncHandler (async(req,res)=>{
 
     try {   
         const savedBooks =req.params.id
+        console.log(savedBooks ,req.user.id)
         const user =await User.findByIdAndUpdate({ _id :req.user.id},{
             $pull:{
-                savedBooks:savedBooks
+                savedBooks
             }
         })
         if(user){
-            mongoose.connection.close()
+            const savebook = await user.save()
+            res.status(201).json(savebook)
+        }else{
+            res.status(404).json({errors:[{msg: 'book not found'}]})
         } 
     }
     
     catch (error) {
         res.status(404).json(error)
+        console.log(error);
        
     } 
 })

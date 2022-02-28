@@ -47,12 +47,12 @@ const books =[
     url:'https://www.amazon.in/Empire-Vampire-Book/dp/0008350442?ref_=Oct_d_omg_d_1318165031&pd_rd_w=6ZjSk&pf_rd_p=d3b3b68b-946a-462b-9c08-c9d63e1e2cdc&pf_rd_r=7JSRWNC02V6KJBREX5ZB&pd_rd_r=68f5a0f5-241c-48da-86ce-d118a9abcb3f&pd_rd_wg=Af1YV&pd_rd_i=0008350442'
 },
 {
-    genre:'',
+    genre:'Science',
     title:'Black Holes',
-    author:' Stephen Hawking',
+    author:'Stephen Hawking',
     language:'English',
     description:'It is said that fact is sometimes stranger than fiction, and nowhere is that more true than in the case of black holes. Black holes are stranger than anything dreamed up by science fiction writers.?In 2016 Professor Stephen Hawking delivered the BBC Reith Lectures on a subject that fascinated him for decades ? black holes.In these flagship lectures the legendary physicist argued that if we could only understand black holes and how they challenge the very nature of space and time, we could unlock the secrets of the universe.',
-    image:'/uploads\image-1645895746703.jpg',
+    image:'/uploads\image-1645895889222.jpg',
     url:'https://www.amazon.in/Black-Holes-Lectures-Stephen-Hawking/dp/085750357X?ref_=Oct_d_obs_d_1318169031&pd_rd_w=bZ16E&pf_rd_p=6a6b213b-2f3b-4413-8099-742b8c9f52a9&pf_rd_r=WAHNZKCFNTESDEZCZA4J&pd_rd_r=30f4e7c3-a2e0-44be-88a7-fb339bc726a3&pd_rd_wg=lRamW&pd_rd_i=085750357X'
 },
 {
