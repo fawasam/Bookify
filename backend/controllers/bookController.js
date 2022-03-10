@@ -138,11 +138,52 @@ const deleteBook = asyncHandler(async(req,res) => {
        res.status(404).json({errors:[{msg: 'book not found'}]})
 })
 
+
+// @desc   CREATE new review
+// @route  POST  /api/book/:id/review
+// @access Private
+
+const createBookReview = asyncHandler(async(req,res) => {
+
+    const { 
+       rating,
+       comment,
+    }=req.body
+ 
+    //grabing the book that reviewing
+    const book = await Book.findById(req.params.id)
+
+    if(book){
+        const alreadyReviewed = book.reviews.find(r=>r.user.toString() === req.user._id.toString())
+        if(alreadyReviewed){
+            res.status(400).json({errors:[{msg:'your review already saved'}]})
+        }else{
+
+            const review ={
+                name:req.user.name,
+                rating:Number(rating),
+                comment,
+                user:req.user._id
+             }
+    
+            book.reviews.push(review)
+            book.numReviews =  book.reviews.length
+            book.rating = book.reviews.reduce((acc,item)=>item.rating + acc , 0) / book.reviews.length
+            await book.save()
+           res.status(201).json({message: 'Review added'})
+        }
+
+    }else{
+       res.status(404).json({errors:[{msg: 'book not found'}]})
+    }
+})
+
 export {
     getBooks,
     getBooksById,
     createBook,
     updateBook,
     deleteBook,
+    createBookReview,
     
 }

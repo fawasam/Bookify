@@ -23,8 +23,10 @@ router.get("/:id" ,getUserById)
 
 
 //admin routes
-// router.get("/" ,protect,admin,getUsers)
-// router.put("/:id" ,protect,admin,updateUser)
-// router.delete("/:id" ,protect,admin,deleteUser)
+router.get("/" ,protect,admin,getUsers)
+router.put("/:id" ,protect,admin,updateUser)
+router.delete("/:id" ,protect,admin,deleteUser)
+
+
 
 export default router

@@ -7,12 +7,15 @@ import {
     createBook,
     updateBook,
     deleteBook,
+    createBookReview
     
 } from '../controllers/bookController.js'
 
 import {
     saveBook,
-    deleteSaveBook, listSavedBook
+    deleteSaveBook, 
+    listSavedBook,
+    
 } from '../controllers/savebookController.js'
 
 
@@ -26,6 +29,7 @@ router.get('/:id',getBooksById)
 router.post('/' ,protect, createBook) 
 router.put('/:id',protect, updateBook) 
 router.delete('/:id' ,protect, deleteBook)
+router.post('/:id/review' ,protect,createBookReview) 
 
 //savebooks
 router.put('/savebooks/:id',protect, saveBook) 
@@ -33,8 +37,6 @@ router.get('/savebooks/:id', listSavedBook)  //protected
 router.delete('/savebooks/:id',protect, deleteSaveBook) 
 
 
-// router.delete('/:id',protect ,deleteBook)
-// router.post('/:id/review' ,protect,createBookReview) 
 
 
 
