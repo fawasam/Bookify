@@ -101,7 +101,8 @@ const updateBook = asyncHandler(async(req,res) => {
            author,
            image,
            language,
-           url,description
+           url,
+           description
        }=req.body
 
     const book = await Book.findById(req.params.id)
@@ -152,6 +153,7 @@ const createBookReview = asyncHandler(async(req,res) => {
  
     //grabing the book that reviewing
     const book = await Book.findById(req.params.id)
+    console.log(req.user);
 
     if(book){
         const alreadyReviewed = book.reviews.find(r=>r.user.toString() === req.user._id.toString())
@@ -160,12 +162,13 @@ const createBookReview = asyncHandler(async(req,res) => {
         }else{
 
             const review ={
+                user:req.user._id,
                 name:req.user.name,
                 rating:Number(rating),
-                comment,
-                user:req.user._id
+                comment
              }
     
+             console.log(review);
             book.reviews.push(review)
             book.numReviews =  book.reviews.length
             book.rating = book.reviews.reduce((acc,item)=>item.rating + acc , 0) / book.reviews.length

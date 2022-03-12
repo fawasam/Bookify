@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import User from "../models/userModel.js"
+import Book from "../models/bookModel.js"
 import bcrypt, { hash } from 'bcrypt'
 import generateToken from '../util/generateToken.js'
 
@@ -83,6 +84,8 @@ const getUserProfile = asyncHandler(async(req,res) => {
          name:user.name,
          email:user.email,
          isAdmin:user.isAdmin,
+        savedBooks:user.savedBooks,
+         Mybook:user.Mybook
      })
    }
    else{
@@ -98,14 +101,15 @@ const getUserProfile = asyncHandler(async(req,res) => {
 
 const updateUserProfile = asyncHandler(async(req,res) => {
    const user =await User.findById (req.user._id)
-   console.log(user);
 
     if (user) {
       user.name =req.body.name || user.name
       user.email =req.body.email || user.email
 
       if(req.body.password) {
-        user.password = req.body.password
+         const salt = await bcrypt.genSalt(10)
+         const password =await bcrypt.hash(req.body.password,salt)
+         user.password = password
       }
 
       const updatedUser =await user.save()
@@ -158,7 +162,15 @@ const deleteUser = asyncHandler(async(req,res) => {
 const getUserById = asyncHandler(async(req,res) => {
    const user =await User.findById(req.params.id).select('-password')
    if(user){
-     res.json(user)
+     res.json({
+         _id:user._id,
+         email:user.email,
+         isAdmin:user.isAdmin,
+         name:user.name,
+         savedBooks:user.savedBooks,
+         Mybook:user.Mybook
+         
+     })
    }else{
        res.status(400).json({errors:[{msg: 'User not found'}]})
    }
@@ -171,7 +183,6 @@ const getUserById = asyncHandler(async(req,res) => {
 const updateUser = asyncHandler(async(req,res) => {
 
    const user =await User.findById (req.params.id)
-   console.log(user);
 
     if (user) {
       user.name =req.body.name || user.name
@@ -193,6 +204,32 @@ const updateUser = asyncHandler(async(req,res) => {
    }
 })
 
+// @desc   get user 
+// @route  GET /api/users/Mybooks/:id
+// @access Private
+
+const listMyBook = asyncHandler (async(req,res)=>{
+
+    try {
+        const user =await User.findById(req.params.id)
+        if(user){
+           const books =user.Mybook
+           const book = await Book.find({_id:{$in :[...books]}})   
+           if(book){
+               res.status(200).json(book)
+           }else{
+            res.status(404).json({errors:[{msg: 'book not found'}]})
+        }
+
+        }else{
+            res.status(404).json({errors:[{msg: 'User not authorized'}]})
+        }
+           
+    } catch (error) {
+            res.status(404).json({error})
+        
+    }
+})
 
 
 export { 
@@ -203,5 +240,6 @@ export {
   getUsers, 
   deleteUser,
   getUserById,
-  updateUser
+  updateUser,
+  listMyBook
 }

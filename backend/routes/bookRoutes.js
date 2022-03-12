@@ -1,6 +1,6 @@
 import express from'express'
 const router = express.Router()
-import {protect} from '../middleware/authMiddleware.js'
+import {protect ,admin} from '../middleware/authMiddleware.js'
 import {
     getBooks,
     getBooksById,
@@ -24,12 +24,13 @@ import {
 
 
 
-router.get('/' ,getBooks) 
-router.get('/:id',getBooksById)
 router.post('/' ,protect, createBook) 
-router.put('/:id',protect, updateBook) 
-router.delete('/:id' ,protect, deleteBook)
 router.post('/:id/review' ,protect,createBookReview) 
+
+router.get('/' ,getBooks) 
+router.put('/:id',protect, updateBook) 
+router.get('/:id',getBooksById)
+router.delete('/:id' ,protect, deleteBook)
 
 //savebooks
 router.put('/savebooks/:id',protect, saveBook) 
