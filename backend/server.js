@@ -46,9 +46,6 @@ else{
     })
 }
 
- app.get('/' , (req,res)=>{
-        res.send('API is Running')
-    })
 app.use(notFound)
 app.use(errorHandler)
 

@@ -9,8 +9,8 @@
     "server": "nodemon backend/server.js",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-b": "cd frontend && npm install && npm run build",
-    "heroku-postbuild ": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
+    "heroku-postbuild": "cd frontend && npm install && npm run build",
+    "heroku-postbuild333 ": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
   "author": "fawas deepraj henna",
   "license": "ISC",
