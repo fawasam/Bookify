@@ -8,6 +8,8 @@ import path from 'path'
 import userRoute from "./routes/userRoutes.js"
 import bookRoute from './routes/bookRoutes.js'
 import uploadRoute from "./routes/uploadRoute.js"
+import {notFound ,errorHandler} from './middleware/errorMiddleware.js'
+
 
 //app
 const app =express()
@@ -15,11 +17,12 @@ const __dirname = path.resolve();
 
 //configurations
 dotenv.config()
-
-//cors
-app.use(cors())
-//connection
 connectDB()
+app.use(cors())
+
+if(process.env.NODE_ENV === 'development'){
+    app.use(morgan('dev'))
+}
 
 app.use(morgan('dev'))
 app.use(express.json())
@@ -27,9 +30,6 @@ app.use("/api/users",userRoute)
 app.use("/api/books" ,bookRoute)
 app.use("/api/upload",uploadRoute)
 
-
-//make uploads folder static
-app.use('/uploads' , express.static(path.join(__dirname , '/uploads')))
 
 if(process.env.NODE_ENV === 'production'){
 
@@ -43,6 +43,12 @@ else{
         res.send('API is Running')
     })
 }
+
+
+//make uploads folder static
+app.use('/uploads' , express.static(path.join(__dirname , '/uploads')))
+app.use(notFound)
+app.use(errorHandler)
 
 
 
