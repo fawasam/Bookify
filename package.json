@@ -5,10 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon backend/server",
-    "server": "node backend/server",
+    "start": "nodemon backend/server.js",
     "client": "npm start --prefix frontend",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "dev": "concurrently \"npm start\" \"npm run client\"",
     "heroku-postbuild": "cd frontend && npm install && npm run build"
   },
   "author": "fawas deepraj henna",
