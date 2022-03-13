@@ -29,6 +29,8 @@ app.use(express.json())
 app.use("/api/users",userRoute)
 app.use("/api/books" ,bookRoutes)
 app.use("/api/upload",uploadRoute)
+
+
 //make uploads folder static
 app.use('/uploads' , express.static(path.join(__dirname , '/uploads')))
 
@@ -45,9 +47,7 @@ else{
         res.send('API is Running')
     })
 }
-app.get('/' , (req,res)=>{
-    res.send('API is Running')
-})
+
 
 app.use(notFound)
 app.use(errorHandler)
