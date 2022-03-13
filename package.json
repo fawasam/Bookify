@@ -2,14 +2,14 @@
   "name": "bookify",
   "version": "1.0.0",
   "description": "bookify books review and  recommendation  web application",
-  "main": "index.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
     "start": "nodemon backend/server.js",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm start\" \"npm run client\"",
-    "heroku-postbuild2": "cd frontend && npm install && npm run build",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
+    "no": "cd frontend && npm install && npm run build",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm insall --prefix frontend && npm run build --prefix frontend"
   },
   "author": "fawas deepraj henna",
   "license": "ISC",
