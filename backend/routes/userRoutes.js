@@ -7,7 +7,8 @@ import {
     getUsers,
     deleteUser,
     getUserById,
-    updateUser
+    updateUser,
+    listMyBook
 } from '../controllers/userController.js'
 import {protect,admin} from '../middleware/authMiddleware.js'
 
@@ -20,11 +21,14 @@ router.post('/login' ,authUser)
 router.get("/profile" , protect,getUserProfile)
 router.put("/profile" , protect,updateUserProfile)
 router.get("/:id" ,getUserById)
+router.get("/Mybooks/:id" ,listMyBook)
 
 
 //admin routes
-// router.get("/" ,protect,admin,getUsers)
-// router.put("/:id" ,protect,admin,updateUser)
-// router.delete("/:id" ,protect,admin,deleteUser)
+router.get("/" ,protect,admin,getUsers)
+router.put("/:id" ,protect,admin,updateUser)
+router.delete("/:id" ,protect,admin,deleteUser)
+
+
 
 export default router

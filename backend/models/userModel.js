@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import bookScheme from "../models/bookModel.js"
+
 const userSchema =mongoose.Schema({
 
     name:{
@@ -25,10 +26,9 @@ const userSchema =mongoose.Schema({
         default:false
     },
     savedBooks:{
-        type:[mongoose.Schema.Types.ObjectId],
-        
-        
+        type:[mongoose.Schema.Types.ObjectId]
     },
+
     Mybook:{
         type:mongoose.Schema.Types.Array,
         ref:'Book'

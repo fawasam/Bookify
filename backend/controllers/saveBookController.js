@@ -61,8 +61,8 @@ const listSavedBook = asyncHandler (async(req,res)=>{
 
 
 // @desc   delete saved books
-// @route  DELTE  /api/books/savebooks/:id
-// @access Private
+// @route  DELETE /api/books/savebooks/:id
+// @access Private/admin
 
 const deleteSaveBook = asyncHandler (async(req,res)=>{
 
@@ -91,7 +91,7 @@ const deleteSaveBook = asyncHandler (async(req,res)=>{
 
 
 export {
-   saveBook,
+    saveBook,
     deleteSaveBook,
     listSavedBook
 }

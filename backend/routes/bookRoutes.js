@@ -1,18 +1,21 @@
 import express from'express'
 const router = express.Router()
-import {protect} from '../middleware/authMiddleware.js'
+import {protect ,admin} from '../middleware/authMiddleware.js'
 import {
     getBooks,
     getBooksById,
     createBook,
     updateBook,
     deleteBook,
+    createBookReview
     
 } from '../controllers/bookController.js'
 
 import {
     saveBook,
-    deleteSaveBook, listSavedBook
+    deleteSaveBook, 
+    listSavedBook,
+    
 } from '../controllers/savebookController.js'
 
 
@@ -21,10 +24,12 @@ import {
 
 
 
-router.get('/' ,getBooks) 
-router.get('/:id',getBooksById)
 router.post('/' ,protect, createBook) 
+router.post('/:id/review' ,protect,createBookReview) 
+
+router.get('/' ,getBooks) 
 router.put('/:id',protect, updateBook) 
+router.get('/:id',getBooksById)
 router.delete('/:id' ,protect, deleteBook)
 
 //savebooks
@@ -33,8 +38,6 @@ router.get('/savebooks/:id', listSavedBook)  //protected
 router.delete('/savebooks/:id',protect, deleteSaveBook) 
 
 
-// router.delete('/:id',protect ,deleteBook)
-// router.post('/:id/review' ,protect,createBookReview) 
 
 
 
